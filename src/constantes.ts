@@ -1,13 +1,15 @@
+export type TipoIva =
+  | "general"
+  | "reducido"
+  | "superreducidoA"
+  | "superreducidoB"
+  | "superreducidoC"
+  | "sinIva";
+
 export interface Producto {
   nombre: string;
   precio: number;
-  tipoIva:
-    | "general"
-    | "reducido"
-    | "superreducidoA"
-    | "superreducidoB"
-    | "superreducidoC"
-    | "sinIva";
+  tipoIva: TipoIva;
 }
 
 export interface LineaTicket {
@@ -15,24 +17,27 @@ export interface LineaTicket {
   cantidad: number;
 }
 
-export interface LineaTicketProducto {
+export interface ResultadoLineaTicket {
   nombre: string;
-  precioSinIva: number;
-  tipoIva: string;
-  productoIvaPorcentaje: number;
-  productoIva: number;
-  productoIvaIncluido: number;
   cantidad: number;
+  precioSinIva: number;
+  tipoIva: TipoIva;
+  precioConIva: number;
 }
 
-export interface Sumatorios {
+export interface ResultadoTotalTicket {
   totalSinIva: number;
-  ivaTotal: number;
   totalConIva: number;
-  general: number;
-  reducido: number;
-  superreducidoA: number;
-  superreducidoB: number;
-  superreducidoC: number;
-  sinIva: number;
+  totalIva: number;
+}
+
+export interface TotalPorTipoIva {
+  tipoIva: TipoIva;
+  cuantia: number;
+}
+
+export interface TicketFinal {
+  lineas: ResultadoLineaTicket[];
+  total: ResultadoTotalTicket;
+  desgloseIva: TotalPorTipoIva[];
 }

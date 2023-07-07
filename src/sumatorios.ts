@@ -1,81 +1,82 @@
-import { LineaTicketProducto, Sumatorios } from "./constantes";
+import {
+  ResultadoLineaTicket,
+  ResultadoTotalTicket,
+  TotalPorTipoIva,
+  TipoIva,
+} from "./constantes";
 
-//Multiplicación de productos sin IVA por su cantidad
-
+//Multiplicación de productos sin IVA por su cantidad:
 export const productoSinIvaPorCantidad = (
-  lineaProducto: LineaTicketProducto
+  lineaProducto: ResultadoLineaTicket
 ): number => {
-  const productoPorUnidades = Number(
+  return Number(
     (lineaProducto.precioSinIva * lineaProducto.cantidad).toFixed(2)
   );
-  return productoPorUnidades;
 };
 
-//Multiplicación de productos con IVA por su cantidad
-
+//Multiplicación de productos con IVA por su cantidad:
 export const productosConIvaPorCantidad = (
-  lineaProducto: LineaTicketProducto
+  lineaProducto: ResultadoLineaTicket
 ): number => {
-  const productoPorUnidades = Number(
-    (lineaProducto.productoIvaIncluido * lineaProducto.cantidad).toFixed(2)
+  return Number(
+    (lineaProducto.precioConIva * lineaProducto.cantidad).toFixed(2)
   );
-  return productoPorUnidades;
 };
 
-//Sumatorio de totales sin IVA
-
+//Sumatorio de totales sin IVA:
 export const sumaTotalesSinIva = (
-  lineasProducto: LineaTicketProducto[]
+  lineasProducto: ResultadoLineaTicket[]
 ): number => {
-  const sumaProductosSinIva = lineasProducto.reduce(
-    (acc, lineaProducto) => acc + productoSinIvaPorCantidad(lineaProducto),
-    0
+  return Number(
+    lineasProducto
+      .reduce(
+        (acc, lineaProducto) => acc + productoSinIvaPorCantidad(lineaProducto),
+        0
+      )
+      .toFixed(2)
   );
-
-  return sumaProductosSinIva;
 };
 
-//Sumatorio de totales con IVA
-
+//Sumatorio de totales con IVA:
 export const sumaTotalesConIva = (
-  lineasProducto: LineaTicketProducto[]
+  lineasProducto: ResultadoLineaTicket[]
 ): number => {
-  const sumaProductosConIva = lineasProducto.reduce(
-    (acc, lineaProducto) => acc + productosConIvaPorCantidad(lineaProducto),
-    0
+  return Number(
+    lineasProducto
+      .reduce(
+        (acc, lineaProducto) => acc + productosConIvaPorCantidad(lineaProducto),
+        0
+      )
+      .toFixed(2)
   );
-
-  return sumaProductosConIva;
 };
 
-//Filtro por tipo de IVA
-
+//Filtro por tipo de IVA:
 const filtraTipoIva = (
-  lineasProducto: LineaTicketProducto[],
-  tipoIva: string
-): LineaTicketProducto[] => {
-  const productosFiltradosPorTipoIva = lineasProducto.filter(
+  lineasProducto: ResultadoLineaTicket[],
+  tipoIva: TipoIva
+): ResultadoLineaTicket[] => {
+  return lineasProducto.filter(
     (lineaProducto) => lineaProducto.tipoIva === tipoIva
   );
-
-  return productosFiltradosPorTipoIva;
 };
 
-//Filtro por tipo de IVA
-
 export const sumaTotalesPorTipoIva = (
-  lineasProducto: LineaTicketProducto[],
-  tipoIva: string
+  lineasProducto: ResultadoLineaTicket[],
+  tipoIva: TipoIva
 ) => {
-  return filtraTipoIva(lineasProducto, tipoIva).reduce(
-    (acc, lineaProducto) => acc + productosConIvaPorCantidad(lineaProducto),
-    0
+  return Number(
+    filtraTipoIva(lineasProducto, tipoIva)
+      .reduce(
+        (acc, lineaProducto) => acc + productosConIvaPorCantidad(lineaProducto),
+        0
+      )
+      .toFixed(2)
   );
 };
 
 //IVA total:
-
-export const ivaTotal = (lineasProducto: LineaTicketProducto[]): number => {
+export const ivaTotal = (lineasProducto: ResultadoLineaTicket[]): number => {
   return Number(
     (
       sumaTotalesConIva(lineasProducto) - sumaTotalesSinIva(lineasProducto)
@@ -83,20 +84,36 @@ export const ivaTotal = (lineasProducto: LineaTicketProducto[]): number => {
   );
 };
 
-//muestra de los Sumatorios
-
-export const muestraTotales = (
-  lineasProducto: LineaTicketProducto[]
-): Sumatorios => {
+//Muestra de los Sumatorios:
+export const muestraResultadoTotalTicket = (
+  lineasProducto: ResultadoLineaTicket[]
+): ResultadoTotalTicket => {
   return {
     totalSinIva: sumaTotalesSinIva(lineasProducto),
-    ivaTotal: ivaTotal(lineasProducto),
     totalConIva: sumaTotalesConIva(lineasProducto),
-    general: sumaTotalesPorTipoIva(lineasProducto, "general"),
-    reducido: sumaTotalesPorTipoIva(lineasProducto, "reducido"),
-    superreducidoA: sumaTotalesPorTipoIva(lineasProducto, "superreducidoA"),
-    superreducidoB: sumaTotalesPorTipoIva(lineasProducto, "superreducidoB"),
-    superreducidoC: sumaTotalesPorTipoIva(lineasProducto, "superreducidoC"),
-    sinIva: sumaTotalesPorTipoIva(lineasProducto, "sinIva"),
+    totalIva: ivaTotal(lineasProducto),
   };
+};
+
+export const muestraTotalPorTipoIva = (
+  lineasProducto: ResultadoLineaTicket[],
+  tipoIva: TipoIva
+): TotalPorTipoIva => {
+  return {
+    tipoIva: tipoIva,
+    cuantia: sumaTotalesPorTipoIva(lineasProducto, tipoIva),
+  };
+};
+
+export const muestraTotalesPorTipoIva = (
+  lineasProducto: ResultadoLineaTicket[]
+): TotalPorTipoIva[] => {
+  return [
+    muestraTotalPorTipoIva(lineasProducto, "general"),
+    muestraTotalPorTipoIva(lineasProducto, "reducido"),
+    muestraTotalPorTipoIva(lineasProducto, "sinIva"),
+    muestraTotalPorTipoIva(lineasProducto, "superreducidoA"),
+    muestraTotalPorTipoIva(lineasProducto, "superreducidoB"),
+    muestraTotalPorTipoIva(lineasProducto, "superreducidoC"),
+  ];
 };

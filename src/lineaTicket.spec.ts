@@ -1,4 +1,4 @@
-import { LineaTicket, LineaTicketProducto } from "./constantes";
+import { LineaTicket, ResultadoLineaTicket } from "./constantes";
 import { crearLineaTicket } from "./lineaTicket";
 
 describe("crearLineaTicket", () => {
@@ -12,16 +12,12 @@ describe("crearLineaTicket", () => {
       },
       cantidad: 2,
     };
-
     // Act
-
     const resultadoFuncion = crearLineaTicket(productoEjemplo);
-    const resultadoEsperado: LineaTicketProducto = {
+    const resultadoEsperado: ResultadoLineaTicket = {
       nombre: "Legumbres",
       precioSinIva: 2,
-      productoIva: 0.42,
-      productoIvaIncluido: 2.42,
-      productoIvaPorcentaje: 21,
+      precioConIva: 2.42,
       tipoIva: "general",
       cantidad: 2,
     };
@@ -43,12 +39,10 @@ describe("crearLineaTicket", () => {
     // Act
 
     const resultadoFuncion = crearLineaTicket(productoEjemplo);
-    const resultadoEsperado: LineaTicketProducto = {
+    const resultadoEsperado: ResultadoLineaTicket = {
       nombre: "Perfume",
       precioSinIva: 20,
-      productoIva: 4.2,
-      productoIvaIncluido: 24.2,
-      productoIvaPorcentaje: 21,
+      precioConIva: 24.2,
       tipoIva: "general",
       cantidad: 3,
     };
@@ -66,16 +60,12 @@ describe("crearLineaTicket", () => {
       },
       cantidad: 6,
     };
-
     // Act
-
     const resultadoFuncion = crearLineaTicket(productoEjemplo);
-    const resultadoEsperado: LineaTicketProducto = {
+    const resultadoEsperado: ResultadoLineaTicket = {
       nombre: "Leche",
       precioSinIva: 1,
-      productoIva: 0,
-      productoIvaIncluido: 1,
-      productoIvaPorcentaje: 0,
+      precioConIva: 1,
       tipoIva: "superreducidoC",
       cantidad: 6,
     };

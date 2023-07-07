@@ -1,9 +1,7 @@
-import { LineaTicket } from "./constantes";
-import { imprimeLineasTicket } from "./imprimirLineasProductos";
-
 import "./style.css";
-import { muestraTotales } from "./sumatorios";
-
+import { LineaTicket } from "./constantes";
+import { calculaTicket } from "./ticketFinal";
+//Aquí dejamos pasado por consola un ejemplo:
 const productos: LineaTicket[] = [
   {
     producto: {
@@ -38,15 +36,4 @@ const productos: LineaTicket[] = [
     cantidad: 1,
   },
 ];
-
-const calculaTicket = (lineasTicket: LineaTicket[]) => {
-  const lineasIndividuales = imprimeLineasTicket(lineasTicket);
-  const totalesTicket = muestraTotales(lineasIndividuales);
-
-  return {
-    lineasIndividuales,
-    totalesTicket,
-  };
-};
-
 console.log(calculaTicket(productos));
