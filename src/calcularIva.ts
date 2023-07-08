@@ -5,7 +5,4 @@ export const calcularIva = (precioProducto: number, tipoIva: number): number =>
 export const calculoIvaRedondeado = (
   precioProducto: number,
   tipoIva: number
-): number => {
-  const ivaProducto = calcularIva(precioProducto, tipoIva);
-  return Number(ivaProducto.toFixed(2));
-};
+): number => Number(calcularIva(precioProducto, tipoIva).toFixed(2));

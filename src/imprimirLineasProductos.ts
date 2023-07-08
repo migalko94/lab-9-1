@@ -3,6 +3,5 @@ import { crearLineaTicket } from "./lineaTicket";
 
 export const imprimeLineasTicket = (
   lineaTicket: LineaTicket[]
-): ResultadoLineaTicket[] => {
-  return lineaTicket.map((producto: LineaTicket) => crearLineaTicket(producto));
-};
+): ResultadoLineaTicket[] =>
+  lineaTicket.map((producto: LineaTicket) => crearLineaTicket(producto));

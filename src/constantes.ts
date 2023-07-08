@@ -6,6 +6,15 @@ export type TipoIva =
   | "superreducidoC"
   | "sinIva";
 
+export const tiposIva: TipoIva[] = [
+  "general",
+  "reducido",
+  "sinIva",
+  "superreducidoA",
+  "superreducidoB",
+  "superreducidoC",
+];
+
 export interface Producto {
   nombre: string;
   precio: number;

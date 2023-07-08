@@ -1,4 +1,3 @@
-//Multiplicación de productos sin IVA por su cantidad:
 import { ResultadoLineaTicket } from "./constantes";
 import {
   ivaTotal,
@@ -8,6 +7,8 @@ import {
   sumaTotalesPorTipoIva,
   sumaTotalesSinIva,
 } from "./sumatorios";
+
+//Multiplicación de productos sin IVA por su cantidad:
 
 describe("productoSinIvaPorCantidad", () => {
   it("Multiplica el producto sin el IVA por su cantidad", () => {
@@ -48,6 +49,7 @@ describe("productoSinIvaPorCantidad", () => {
 });
 
 //Multiplicación de productos con IVA por su cantidad:
+
 describe("productoConIvaPorCantidad", () => {
   it("Multiplica el producto con el IVA por su cantidad", () => {
     // Arrange
@@ -84,6 +86,7 @@ describe("productoConIvaPorCantidad", () => {
 });
 
 //Sumatorio de totales sin IVA:
+
 describe("sumaTotalesSinIva", () => {
   it("Suma los precios de los productos por su cantidad sin el IVA", () => {
     // Arrange
@@ -128,6 +131,7 @@ describe("sumaTotalesSinIva", () => {
 });
 
 //Sumatorio de totales con IVA:
+
 describe("sumaTotalesConIva", () => {
   it("Suma los precios de los productos por su cantidad con el IVA", () => {
     // Arrange:
@@ -171,6 +175,7 @@ describe("sumaTotalesConIva", () => {
 });
 
 //Filtro por tipo de IVA:
+
 describe("sumaTotalesSinIva", () => {
   it("Suma los precios de los productos por su cantidad sin el IVA", () => {
     // Arrange:
@@ -213,6 +218,7 @@ describe("sumaTotalesSinIva", () => {
 });
 
 //IVA total:
+
 describe("ivaTotal", () => {
   it("Devuelve la cantidad total de IVA", () => {
     // Arrange:
@@ -256,6 +262,7 @@ describe("ivaTotal", () => {
 });
 
 //Sumatorio de totales con IVA:
+
 describe("sumaTotalesPorTipoIva", () => {
   it("Suma los precios de los productos por su cantidad con el IVA filtrado por el tipo de IVA", () => {
     // Arrange:

@@ -3,6 +3,7 @@ import {
   ResultadoTotalTicket,
   TotalPorTipoIva,
   TipoIva,
+  tiposIva,
 } from "./constantes";
 
 //Multiplicación de productos sin IVA por su cantidad:
@@ -82,25 +83,10 @@ export const muestraResultadoTotalTicket = (
   };
 };
 
-export const muestraTotalPorTipoIva = (
-  lineasProducto: ResultadoLineaTicket[],
-  tipoIva: TipoIva
-): TotalPorTipoIva => {
-  return {
-    tipoIva: tipoIva,
-    cuantia: sumaTotalesPorTipoIva(lineasProducto, tipoIva),
-  };
-};
-
 export const muestraTotalesPorTipoIva = (
   lineasProducto: ResultadoLineaTicket[]
-): TotalPorTipoIva[] => {
-  return [
-    muestraTotalPorTipoIva(lineasProducto, "general"),
-    muestraTotalPorTipoIva(lineasProducto, "reducido"),
-    muestraTotalPorTipoIva(lineasProducto, "sinIva"),
-    muestraTotalPorTipoIva(lineasProducto, "superreducidoA"),
-    muestraTotalPorTipoIva(lineasProducto, "superreducidoB"),
-    muestraTotalPorTipoIva(lineasProducto, "superreducidoC"),
-  ];
-};
+): TotalPorTipoIva[] =>
+  tiposIva.map((tipoIva) => ({
+    tipoIva: tipoIva,
+    cuantia: sumaTotalesPorTipoIva(lineasProducto, tipoIva),
+  }));
