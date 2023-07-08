@@ -15,8 +15,6 @@ export const asignarIva = (producto: Producto) => {
       return 4;
 
     case "superreducidoC":
-      return 0;
-
     case "sinIva":
       return 0;
   }
