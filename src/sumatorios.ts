@@ -6,23 +6,58 @@ import {
   tiposIva,
 } from "./constantes";
 
+//Control de errores:
+const controlErrorResultadoLineaTicket = (
+  lineaProducto: ResultadoLineaTicket
+) => {
+  if (!lineaProducto) {
+    throw new Error("El parámetro introducido no es correcto");
+  }
+};
+
+const controlErroresResultadoLineasTicket = (
+  lineasProducto: ResultadoLineaTicket[]
+) => {
+  if (!lineasProducto) {
+    throw new Error("El parámetro introducido no es correcto");
+  }
+};
+
+const controlErroresFiltro = (
+  lineasProducto: ResultadoLineaTicket[],
+  tipoIva: TipoIva
+) => {
+  if (!lineasProducto || !tipoIva) {
+    throw new Error("El parámetro introducido no es correcto");
+  }
+};
+
 //Multiplicación de productos sin IVA por su cantidad:
 export const productoSinIvaPorCantidad = (
   lineaProducto: ResultadoLineaTicket
-): number =>
-  Number((lineaProducto.precioSinIva * lineaProducto.cantidad).toFixed(2));
+): number => {
+  controlErrorResultadoLineaTicket(lineaProducto);
+  return Number(
+    (lineaProducto.precioSinIva * lineaProducto.cantidad).toFixed(2)
+  );
+};
 
 //Multiplicación de productos con IVA por su cantidad:
 export const productosConIvaPorCantidad = (
   lineaProducto: ResultadoLineaTicket
-): number =>
-  Number((lineaProducto.precioConIva * lineaProducto.cantidad).toFixed(2));
+): number => {
+  controlErrorResultadoLineaTicket(lineaProducto);
+  return Number(
+    (lineaProducto.precioConIva * lineaProducto.cantidad).toFixed(2)
+  );
+};
 
 //Sumatorio de totales sin IVA:
 export const sumaTotalesSinIva = (
   lineasProducto: ResultadoLineaTicket[]
-): number =>
-  Number(
+): number => {
+  controlErroresResultadoLineasTicket(lineasProducto);
+  return Number(
     lineasProducto
       .reduce(
         (acc, lineaProducto) => acc + productoSinIvaPorCantidad(lineaProducto),
@@ -30,12 +65,14 @@ export const sumaTotalesSinIva = (
       )
       .toFixed(2)
   );
+};
 
 //Sumatorio de totales con IVA:
 export const sumaTotalesConIva = (
   lineasProducto: ResultadoLineaTicket[]
-): number =>
-  Number(
+): number => {
+  controlErroresResultadoLineasTicket(lineasProducto);
+  return Number(
     lineasProducto
       .reduce(
         (acc, lineaProducto) => acc + productosConIvaPorCantidad(lineaProducto),
@@ -43,19 +80,25 @@ export const sumaTotalesConIva = (
       )
       .toFixed(2)
   );
+};
 
 //Filtro por tipo de IVA:
-const filtraTipoIva = (
+export const filtraTipoIva = (
   lineasProducto: ResultadoLineaTicket[],
   tipoIva: TipoIva
-): ResultadoLineaTicket[] =>
-  lineasProducto.filter((lineaProducto) => lineaProducto.tipoIva === tipoIva);
+): ResultadoLineaTicket[] => {
+  controlErroresFiltro(lineasProducto, tipoIva);
+  return lineasProducto.filter(
+    (lineaProducto) => lineaProducto.tipoIva === tipoIva
+  );
+};
 
 export const sumaTotalesPorTipoIva = (
   lineasProducto: ResultadoLineaTicket[],
   tipoIva: TipoIva
-) =>
-  Number(
+) => {
+  controlErroresFiltro(lineasProducto, tipoIva);
+  return Number(
     filtraTipoIva(lineasProducto, tipoIva)
       .reduce(
         (acc, lineaProducto) => acc + productosConIvaPorCantidad(lineaProducto),
@@ -63,19 +106,23 @@ export const sumaTotalesPorTipoIva = (
       )
       .toFixed(2)
   );
+};
 
 //IVA total:
-export const ivaTotal = (lineasProducto: ResultadoLineaTicket[]): number =>
-  Number(
+export const ivaTotal = (lineasProducto: ResultadoLineaTicket[]): number => {
+  controlErroresResultadoLineasTicket(lineasProducto);
+  return Number(
     (
       sumaTotalesConIva(lineasProducto) - sumaTotalesSinIva(lineasProducto)
     ).toFixed(2)
   );
+};
 
 //Muestra de los Sumatorios:
 export const muestraResultadoTotalTicket = (
   lineasProducto: ResultadoLineaTicket[]
 ): ResultadoTotalTicket => {
+  controlErroresResultadoLineasTicket(lineasProducto);
   return {
     totalSinIva: sumaTotalesSinIva(lineasProducto),
     totalConIva: sumaTotalesConIva(lineasProducto),
@@ -85,8 +132,10 @@ export const muestraResultadoTotalTicket = (
 
 export const muestraTotalesPorTipoIva = (
   lineasProducto: ResultadoLineaTicket[]
-): TotalPorTipoIva[] =>
-  tiposIva.map((tipoIva) => ({
+): TotalPorTipoIva[] => {
+  controlErroresResultadoLineasTicket(lineasProducto);
+  return tiposIva.map((tipoIva) => ({
     tipoIva: tipoIva,
     cuantia: sumaTotalesPorTipoIva(lineasProducto, tipoIva),
   }));
+};

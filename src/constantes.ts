@@ -50,3 +50,19 @@ export interface TicketFinal {
   total: ResultadoTotalTicket;
   desgloseIva: TotalPorTipoIva[];
 }
+
+export const controlErroresCalculoIva = (
+  precioProducto: number,
+  porcentajeIva: number
+) => {
+  if (
+    precioProducto === undefined ||
+    precioProducto === null ||
+    isNaN(precioProducto) ||
+    porcentajeIva === undefined ||
+    porcentajeIva === null ||
+    isNaN(porcentajeIva)
+  ) {
+    throw new Error("El parámetro introducido no es correcto");
+  }
+};
