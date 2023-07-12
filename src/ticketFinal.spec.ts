@@ -1,5 +1,4 @@
-import { TicketFinal } from "./constantes";
-import { LineaTicket } from "./constantes";
+import { TicketFinal, LineaTicket } from "./constantes";
 import { calculaTicket } from "./ticketFinal";
 
 describe("calculaTicket", () => {

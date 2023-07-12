@@ -63,7 +63,7 @@ describe("calcularPrecioConIva", () => {
     expect(result).toThrowError("El parámetro introducido no es correcto");
   });
 
-  it("Debe devolver el precio con IVA del producto", () => {
+  it("Debe devolver el precio con IVA del producto: el precio del producto más el 21% de IVA", () => {
     // Arrange
     const precioProducto: number = 1000;
     const tipoIva: number = 21;
@@ -75,7 +75,7 @@ describe("calcularPrecioConIva", () => {
     expect(resultadoFuncion).toBe(resultadoEsperado);
   });
 
-  it("Debe devolver el precio con IVA del producto", () => {
+  it("Debe devolver el precio con IVA del producto: el precio del producto más el 4% de IVA", () => {
     // Arrange
     const precioProducto: number = 100;
     const tipoIva: number = 4;
@@ -87,7 +87,7 @@ describe("calcularPrecioConIva", () => {
     expect(resultadoFuncion).toBe(resultadoEsperado);
   });
 
-  it("Debe devolver el precio con IVA del producto", () => {
+  it("Debe devolver el precio con IVA del producto: el precio del producto directamente al ser el IVA del 0%", () => {
     // Arrange
     const precioProducto: number = 8;
     const tipoIva: number = 0;

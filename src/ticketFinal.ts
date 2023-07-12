@@ -1,9 +1,11 @@
 import { LineaTicket, TicketFinal } from "./constantes";
-import { imprimeLineasTicket } from "./imprimirLineasProductos";
+
 import {
-  muestraResultadoTotalTicket,
   muestraTotalesPorTipoIva,
-} from "./sumatorios";
+  ivaTotal,
+  sumaTotalesSinIva,
+  imprimeLineasTicket,
+} from "./ticketFinal.helpers";
 
 const controlErroresFinal = (lineasTicket: LineaTicket[]) => {
   if (!lineasTicket) {
@@ -15,7 +17,11 @@ export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
   controlErroresFinal(lineasTicket);
   return {
     lineas: imprimeLineasTicket(lineasTicket),
-    total: muestraResultadoTotalTicket(imprimeLineasTicket(lineasTicket)),
-    desgloseIva: muestraTotalesPorTipoIva(imprimeLineasTicket(lineasTicket)),
+    total: {
+      totalSinIva: sumaTotalesSinIva(lineasTicket),
+      totalConIva: sumaTotalesSinIva(lineasTicket) + ivaTotal(lineasTicket),
+      totalIva: ivaTotal(lineasTicket),
+    },
+    desgloseIva: muestraTotalesPorTipoIva(lineasTicket),
   };
 };
