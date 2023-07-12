@@ -8,8 +8,9 @@ import {
 import {
   controlErroresLineaProducto,
   controlErroresResultadoLineasTicket,
-} from "./controlErroresSumatorios";
+} from "./controlErrores-helpers";
 import { asignarIva, crearLineaTicket } from "./lineaTicket";
+import { filtraTipoIva } from "./muestraTotalesPorTipoIva.helper";
 
 //***1***
 
@@ -49,22 +50,9 @@ export const muestraTotalesPorTipoIva = (
   controlErroresResultadoLineasTicket(lineasProducto);
   return tiposIva.map((tipoIva) => ({
     tipoIva,
-    cuantia: Number(
-      lineasProducto
-        .filter((lineaProducto) => lineaProducto.producto.tipoIva === tipoIva)
-        .reduce(
-          (acc, lineaProducto) =>
-            acc +
-            (lineaProducto.producto.precio +
-              calculoIvaRedondeado(
-                lineaProducto.producto.precio,
-                asignarIva(lineaProducto.producto)
-              )) *
-              lineaProducto.cantidad,
-          0
-        )
-        .toFixed(2)
-    ),
+    cuantia:
+      sumaTotalesSinIva(filtraTipoIva(lineasProducto, tipoIva)) +
+      ivaTotal(filtraTipoIva(lineasProducto, tipoIva)),
   }));
 };
 

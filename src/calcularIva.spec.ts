@@ -68,7 +68,7 @@ describe("calcularIva", () => {
     expect(result).toThrowError("El parámetro introducido no es correcto");
   });
 
-  it("Debe devolver el IVA del producto", () => {
+  it("Debe devolver el IVA del producto. En este caso, el 21% del precio del producto", () => {
     // Arrange
     const precioProducto: number = 1000;
     const tipoIva: number = 21;
@@ -80,7 +80,7 @@ describe("calcularIva", () => {
     expect(resultadoFuncion).toBe(resultadoEsperado);
   });
 
-  it("Debe devolver el IVA del producto", () => {
+  it("Debe devolver el IVA del producto. En este caso, el 4 % del precio del producto", () => {
     // Arrange
     const precioProducto: number = 200;
     const tipoIva: number = 4;
@@ -92,7 +92,7 @@ describe("calcularIva", () => {
     expect(resultadoFuncion).toBe(resultadoEsperado);
   });
 
-  it("Debe devolver el IVA del producto", () => {
+  it("Debe devolver el IVA del producto. En este caso, el 0% del precio del producto", () => {
     // Arrange
     const precioProducto: number = 20;
     const tipoIva: number = 0;
@@ -170,7 +170,7 @@ describe("calculoIvaRedondeado", () => {
     expect(result).toThrowError("El parámetro introducido no es correcto");
   });
 
-  it("Debe devolver el IVA redondeado con dos decimales", () => {
+  it("Debe devolver el IVA redondeado con dos decimales. En este caso, el 21 % redondeado del precio del producto", () => {
     // Arrange
     const precioProducto: number = 73.7;
     const tipoIva: number = 21;
@@ -182,7 +182,7 @@ describe("calculoIvaRedondeado", () => {
     expect(resultadoFuncion).toBe(resultadoEsperado);
   });
 
-  it("Debe devolver el IVA redondeado con dos decimales", () => {
+  it("Debe devolver el IVA redondeado con dos decimales. En este caso, el 5% redondeado del precio del producto", () => {
     // Arrange
     const precioProducto: number = 21.36;
     const tipoIva: number = 5;
@@ -194,7 +194,7 @@ describe("calculoIvaRedondeado", () => {
     expect(resultadoFuncion).toBe(resultadoEsperado);
   });
 
-  it("Debe devolver el IVA redondeado con dos decimales", () => {
+  it("Debe devolver el IVA redondeado con dos decimales. En este caso, el 10% redondeado del precio del producto", () => {
     // Arrange
     const precioProducto: number = 2.75;
     const tipoIva: number = 10;
