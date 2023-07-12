@@ -5,10 +5,7 @@ import {
   LineaTicket,
   ResultadoLineaTicket,
 } from "./constantes";
-import {
-  controlErroresLineaProducto,
-  controlErroresResultadoLineasTicket,
-} from "./controlErrores-helpers";
+import { controlErroresLineaProducto } from "./controlErrores-helpers";
 import { asignarIva, crearLineaTicket } from "./lineaTicket";
 import { filtraTipoIva } from "./muestraTotalesPorTipoIva.helper";
 
@@ -47,7 +44,7 @@ export const ivaTotal = (lineasProducto: LineaTicket[]): number => {
 export const muestraTotalesPorTipoIva = (
   lineasProducto: LineaTicket[]
 ): TotalPorTipoIva[] => {
-  controlErroresResultadoLineasTicket(lineasProducto);
+  controlErroresLineaProducto(lineasProducto);
   return tiposIva.map((tipoIva) => ({
     tipoIva,
     cuantia:
