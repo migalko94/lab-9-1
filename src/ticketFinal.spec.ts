@@ -63,12 +63,12 @@ describe("calculaTicket", () => {
     const resultadoFuncion = calculaTicket(productos);
     const resultado: TicketFinal = {
       desgloseIva: [
-        { tipoIva: "general", cuantia: 77.44 },
+        { tipoIva: "general", cuantia: 13.44 },
         { tipoIva: "reducido", cuantia: 0 },
         { tipoIva: "sinIva", cuantia: 0 },
-        { tipoIva: "superreducidoA", cuantia: 5.25 },
+        { tipoIva: "superreducidoA", cuantia: 0.25 },
         { tipoIva: "superreducidoB", cuantia: 0 },
-        { tipoIva: "superreducidoC", cuantia: 6 },
+        { tipoIva: "superreducidoC", cuantia: 0 },
       ],
       lineas: [
         {

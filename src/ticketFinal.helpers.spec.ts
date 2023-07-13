@@ -210,24 +210,86 @@ describe("muestraTotalesPorTipoIva", () => {
           precio: 5,
           tipoIva: "superreducidoA",
         },
-        cantidad: 1,
+        cantidad: 5,
       },
     ];
 
     // Act:
     const resultadoFuncion = muestraTotalesPorTipoIva(productosEjemplo);
     const resultadoEsperado = [
-      { tipoIva: "general", cuantia: 77.44 },
+      { tipoIva: "general", cuantia: 13.44 },
       { tipoIva: "reducido", cuantia: 0 },
       { tipoIva: "sinIva", cuantia: 0 },
-      { tipoIva: "superreducidoA", cuantia: 5.25 },
+      { tipoIva: "superreducidoA", cuantia: 1.25 },
       { tipoIva: "superreducidoB", cuantia: 0 },
-      { tipoIva: "superreducidoC", cuantia: 6 },
+      { tipoIva: "superreducidoC", cuantia: 0 },
     ];
 
     // Assert:
     expect(resultadoFuncion).toEqual(resultadoEsperado);
   });
+});
+
+it("Devuelve un array de objetos con la suma total del importe filtrado por tipo de IVA y el tipo de IVA correspondiente", () => {
+  // Arrange:
+  const productosEjemplo: LineaTicket[] = [
+    {
+      producto: {
+        nombre: "Libros",
+        precio: 12,
+        tipoIva: "superreducidoB",
+      },
+      cantidad: 6,
+    },
+    {
+      producto: {
+        nombre: "Medicamento",
+        precio: 6,
+        tipoIva: "superreducidoB",
+      },
+      cantidad: 1,
+    },
+    {
+      producto: {
+        nombre: "Aceite de oliva",
+        precio: 5.3,
+        tipoIva: "superreducidoA",
+      },
+      cantidad: 2,
+    },
+
+    {
+      producto: {
+        nombre: "Lasaña",
+        precio: 5,
+        tipoIva: "superreducidoA",
+      },
+      cantidad: 3,
+    },
+
+    {
+      producto: {
+        nombre: "Vaqueros",
+        precio: 35,
+        tipoIva: "general",
+      },
+      cantidad: 2,
+    },
+  ];
+
+  // Act:
+  const resultadoFuncion = muestraTotalesPorTipoIva(productosEjemplo);
+  const resultadoEsperado = [
+    { tipoIva: "general", cuantia: 14.7 },
+    { tipoIva: "reducido", cuantia: 0 },
+    { tipoIva: "sinIva", cuantia: 0 },
+    { tipoIva: "superreducidoA", cuantia: 1.28 },
+    { tipoIva: "superreducidoB", cuantia: 3.12 },
+    { tipoIva: "superreducidoC", cuantia: 0 },
+  ];
+
+  // Assert:
+  expect(resultadoFuncion).toEqual(resultadoEsperado);
 });
 
 //***4***

@@ -47,9 +47,7 @@ export const muestraTotalesPorTipoIva = (
   controlErroresLineaProducto(lineasProducto);
   return tiposIva.map((tipoIva) => ({
     tipoIva,
-    cuantia:
-      sumaTotalesSinIva(filtraTipoIva(lineasProducto, tipoIva)) +
-      ivaTotal(filtraTipoIva(lineasProducto, tipoIva)),
+    cuantia: ivaTotal(filtraTipoIva(lineasProducto, tipoIva)),
   }));
 };
 
