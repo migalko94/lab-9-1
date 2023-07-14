@@ -7,20 +7,22 @@ import {
   imprimeLineasTicket,
 } from "./ticketFinal.helpers";
 
-const controlErroresFinal = (lineasTicket: LineaTicket[]) => {
+const controlErroresLineaTicket = (lineasTicket: LineaTicket[]) => {
   if (!lineasTicket) {
     throw new Error("El parámetro introducido no es correcto");
   }
 };
 
 export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
-  controlErroresFinal(lineasTicket);
+  controlErroresLineaTicket(lineasTicket);
+  const subtotal = sumaTotalesSinIva(lineasTicket);
+  const totalIva = ivaTotal(lineasTicket);
   return {
     lineas: imprimeLineasTicket(lineasTicket),
     total: {
-      totalSinIva: sumaTotalesSinIva(lineasTicket),
-      totalConIva: sumaTotalesSinIva(lineasTicket) + ivaTotal(lineasTicket),
-      totalIva: ivaTotal(lineasTicket),
+      totalSinIva: subtotal,
+      totalConIva: subtotal + totalIva,
+      totalIva: totalIva,
     },
     desgloseIva: muestraTotalesPorTipoIva(lineasTicket),
   };

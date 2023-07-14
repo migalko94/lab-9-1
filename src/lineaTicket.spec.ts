@@ -2,26 +2,6 @@ import { LineaTicket, ResultadoLineaTicket } from "./constantes";
 import { crearLineaTicket } from "./lineaTicket";
 
 describe("crearLineaTicket", () => {
-  it("Debe devolver un throw si productos es undefined", () => {
-    // Arrange
-    const productos: any = undefined;
-
-    // Act
-    const result = () => crearLineaTicket(productos);
-    // Assert
-    expect(result).toThrowError("El parámetro introducido no es correcto");
-  });
-
-  it("Debe devolver un throw si productos es null", () => {
-    // Arrange
-    const productos: any = null;
-
-    // Act
-    const result = () => crearLineaTicket(productos);
-    // Assert
-    expect(result).toThrowError("El parámetro introducido no es correcto");
-  });
-
   it("Crea línea de ticket de producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA", () => {
     // Arrange
     const productoEjemplo: LineaTicket = {

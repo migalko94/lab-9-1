@@ -5,15 +5,12 @@ import {
   LineaTicket,
   ResultadoLineaTicket,
 } from "./constantes";
-import { controlErroresLineaProducto } from "./controlErrores-helpers";
+
 import { asignarIva, crearLineaTicket } from "./lineaTicket";
 import { filtraTipoIva } from "./muestraTotalesPorTipoIva.helper";
 
-//***1***
-
-export const sumaTotalesSinIva = (lineasProducto: LineaTicket[]): number => {
-  controlErroresLineaProducto(lineasProducto);
-  return Number(
+export const sumaTotalesSinIva = (lineasProducto: LineaTicket[]): number =>
+  Number(
     lineasProducto
       .reduce(
         (acc, lineaProducto) =>
@@ -22,13 +19,9 @@ export const sumaTotalesSinIva = (lineasProducto: LineaTicket[]): number => {
       )
       .toFixed(2)
   );
-};
 
-//***2***
-
-export const ivaTotal = (lineasProducto: LineaTicket[]): number => {
-  controlErroresLineaProducto(lineasProducto);
-  return lineasProducto.reduce(
+export const ivaTotal = (lineasProducto: LineaTicket[]): number =>
+  lineasProducto.reduce(
     (acc, lineaProducto) =>
       acc +
       calculoIvaRedondeado(
@@ -37,31 +30,16 @@ export const ivaTotal = (lineasProducto: LineaTicket[]): number => {
       ),
     0
   );
-};
-
-//***3***
 
 export const muestraTotalesPorTipoIva = (
   lineasProducto: LineaTicket[]
-): TotalPorTipoIva[] => {
-  controlErroresLineaProducto(lineasProducto);
-  return tiposIva.map((tipoIva) => ({
+): TotalPorTipoIva[] =>
+  tiposIva.map((tipoIva) => ({
     tipoIva,
     cuantia: ivaTotal(filtraTipoIva(lineasProducto, tipoIva)),
   }));
-};
-
-//***4***
 
 export const imprimeLineasTicket = (
   lineaTicket: LineaTicket[]
-): ResultadoLineaTicket[] => {
-  controlErroresLineasTicket(lineaTicket);
-  return lineaTicket.map((producto: LineaTicket) => crearLineaTicket(producto));
-};
-
-const controlErroresLineasTicket = (lineaTicket: LineaTicket[]) => {
-  if (!lineaTicket) {
-    throw new Error("El parámetro introducido no es correcto");
-  }
-};
+): ResultadoLineaTicket[] =>
+  lineaTicket.map((producto: LineaTicket) => crearLineaTicket(producto));
