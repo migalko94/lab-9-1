@@ -1,10 +1,10 @@
 import { LineaTicket, TicketFinal } from "./constantes";
 
 import {
-  muestraTotalesPorTipoIva,
   ivaTotal,
   sumaTotalesSinIva,
   imprimeLineasTicket,
+  muestraTotalesPorTipoIva,
 } from "./ticketFinal.helpers";
 
 const controlErroresLineaTicket = (lineasTicket: LineaTicket[]) => {

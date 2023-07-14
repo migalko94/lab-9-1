@@ -2,7 +2,7 @@ import { LineaTicket, ResultadoLineaTicket } from "./constantes";
 import { crearLineaTicket } from "./lineaTicket";
 
 describe("crearLineaTicket", () => {
-  it("Crea línea de ticket de producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA", () => {
+  it("Crea línea de ticket de producto con su IVA, precio sin IVA, tipo de IVA, IVA y precio con IVA. En este caso, suma el 21% del precio al producto al tener el tipo general. Se muestra que la cantidad de productos es 2", () => {
     // Arrange
     const productoEjemplo: LineaTicket = {
       producto: {
@@ -27,7 +27,7 @@ describe("crearLineaTicket", () => {
     expect(resultadoFuncion).toEqual(resultadoEsperado);
   });
 
-  it("Crea línea de ticket de producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA", () => {
+  it("Crea línea de ticket de producto con el IVA, precio sin IVA, tipo de IVA, IVA y precio con IVA. En este caso, suma el 21% del precio al producto al tener el tipo general. Se muestra que la cantidad de productos es 3", () => {
     // Arrange
     const productoEjemplo: LineaTicket = {
       producto: {
@@ -54,7 +54,7 @@ describe("crearLineaTicket", () => {
     expect(resultadoFuncion).toEqual(resultadoEsperado);
   });
 
-  it("Crea línea de ticket de producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA", () => {
+  it("Crea línea de ticket de producto con IVA, precio sin IVA, tipo de IVA, IVA y precio con IVA. En este caso, al ser el IVA de 0, el precio con y sin IVA es el mismo. Se muestra que la cantidad de productos es 6", () => {
     // Arrange
     const productoEjemplo: LineaTicket = {
       producto: {

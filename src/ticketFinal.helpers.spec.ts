@@ -6,10 +6,8 @@ import {
   imprimeLineasTicket,
 } from "./ticketFinal.helpers";
 
-//***1***
-
 describe("sumaTotalesSinIva", () => {
-  it("Suma los precios de los productos por su cantidad sin el IVA", () => {
+  it("Suma los precios de los productos por su cantidad sin el IVA. Son 4 tipos de productos y 12 unidades", () => {
     // Arrange
     const productosEjemplo: LineaTicket[] = [
       {
@@ -54,10 +52,8 @@ describe("sumaTotalesSinIva", () => {
   });
 });
 
-//***2***
-
 describe("ivaTotal", () => {
-  it("Devuelve el importe total de los productos correspondiente al IVA", () => {
+  it("Devuelve el importe total de los productos correspondiente al IVA. El IVA de cada tipo de producto se calcula en función del porcentaje correspondiente a su tipo. Por ejemplo, el perfume al 21%, pero la lasaña el 5%", () => {
     // Arrange:
     const productosEjemplo: LineaTicket[] = [
       {
@@ -102,10 +98,8 @@ describe("ivaTotal", () => {
   });
 });
 
-//***3***
-
 describe("muestraTotalesPorTipoIva", () => {
-  it("Devuelve un array de objetos con la suma total del importe filtrado por tipo de IVA y el tipo de IVA correspondiente", () => {
+  it("Devuelve un array de objetos con la suma total del importe filtrado por tipo de IVA y el tipo de IVA correspondiente. En este caso, se divide entre general, superreducido A y C", () => {
     // Arrange:
     const productosEjemplo: LineaTicket[] = [
       {
@@ -146,18 +140,15 @@ describe("muestraTotalesPorTipoIva", () => {
     const resultadoFuncion = muestraTotalesPorTipoIva(productosEjemplo);
     const resultadoEsperado = [
       { tipoIva: "general", cuantia: 13.44 },
-      { tipoIva: "reducido", cuantia: 0 },
-      { tipoIva: "sinIva", cuantia: 0 },
-      { tipoIva: "superreducidoA", cuantia: 1.25 },
-      { tipoIva: "superreducidoB", cuantia: 0 },
       { tipoIva: "superreducidoC", cuantia: 0 },
+      { tipoIva: "superreducidoA", cuantia: 1.25 },
     ];
 
     // Assert:
     expect(resultadoFuncion).toEqual(resultadoEsperado);
   });
 
-  it("Devuelve un array de objetos con la suma total del importe filtrado por tipo de IVA y el tipo de IVA correspondiente", () => {
+  it("Devuelve un array de objetos con la suma total del importe filtrado por tipo de IVA y el tipo de IVA correspondiente. En este caso, se reparte entre superreducido A, B y general", () => {
     // Arrange:
     const productosEjemplo: LineaTicket[] = [
       {
@@ -207,12 +198,9 @@ describe("muestraTotalesPorTipoIva", () => {
     // Act:
     const resultadoFuncion = muestraTotalesPorTipoIva(productosEjemplo);
     const resultadoEsperado = [
-      { tipoIva: "general", cuantia: 14.7 },
-      { tipoIva: "reducido", cuantia: 0 },
-      { tipoIva: "sinIva", cuantia: 0 },
-      { tipoIva: "superreducidoA", cuantia: 1.28 },
       { tipoIva: "superreducidoB", cuantia: 3.12 },
-      { tipoIva: "superreducidoC", cuantia: 0 },
+      { tipoIva: "superreducidoA", cuantia: 1.28 },
+      { tipoIva: "general", cuantia: 14.7 },
     ];
 
     // Assert:
@@ -220,10 +208,8 @@ describe("muestraTotalesPorTipoIva", () => {
   });
 });
 
-//***4***
-
 describe("imprimeLineasTicket", () => {
-  it("Imprime una línea de ticket del producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA por cada uno de los productos que le pasemos", () => {
+  it("Imprime una línea de ticket del producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA por cada uno de los productos que le pasemos. En este caso, le pasamos dos productos y realiza el cambio en ambos", () => {
     // Arrange
     const productos: LineaTicket[] = [
       {
@@ -267,7 +253,7 @@ describe("imprimeLineasTicket", () => {
     expect(resultadoFuncion).toEqual(resultadoEsperado);
   });
 
-  it("Imprime una línea de ticket del producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA por cada uno de los productos que le pasemos", () => {
+  it("Imprime una línea de ticket del producto con el IVA que le toque, indicando el precio sin IVA, el tipo de IVA, el IVA y el precio con IVA por cada uno de los productos que le pasemos. En este caso, le pasamos un único producto", () => {
     // Arrange
 
     const productos: LineaTicket[] = [
