@@ -1,4 +1,5 @@
 import { calculoIvaRedondeado } from "./calcularIva";
+import { TipoIva } from "./constantes";
 import {
   LineaTicket,
   ResultadoLineaTicket,
@@ -6,6 +7,7 @@ import {
 } from "./constantes";
 
 import { asignarIva, crearLineaTicket } from "./lineaTicket";
+import { estaTipoIva, filtraTipoIva } from "./filtraIva";
 
 export const sumaTotalesSinIva = (lineasProducto: LineaTicket[]): number =>
   Number(
@@ -34,20 +36,20 @@ export const imprimeLineasTicket = (
 ): ResultadoLineaTicket[] =>
   lineaTicket.map((producto: LineaTicket) => crearLineaTicket(producto));
 
+export const mapeaATotalPorTipoIva = (
+  tipoIva: TipoIva,
+  lineasTicket: LineaTicket[]
+): TotalPorTipoIva => {
+  return {
+    tipoIva,
+    cuantia: ivaTotal(filtraTipoIva(lineasTicket, tipoIva)),
+  };
+};
+
 export const muestraTotalesPorTipoIva = (
-  lineasProducto: LineaTicket[]
+  tiposIva: TipoIva[],
+  lineasTicket: LineaTicket[]
 ): TotalPorTipoIva[] =>
-  lineasProducto.reduce((totales: TotalPorTipoIva[], linea: LineaTicket) => {
-    const tipoIva = linea.producto.tipoIva;
-    const totalDeUnTipo = totales.find((total) => total.tipoIva === tipoIva);
-    const cuantia = calculoIvaRedondeado(
-      linea.producto.precio * linea.cantidad,
-      asignarIva(linea.producto)
-    );
-
-    totalDeUnTipo
-      ? (totalDeUnTipo.cuantia += cuantia)
-      : totales.push({ tipoIva, cuantia });
-
-    return totales;
-  }, []);
+  tiposIva
+    .map((tipoIva) => mapeaATotalPorTipoIva(tipoIva, lineasTicket))
+    .filter((totalPorTipoIva) => estaTipoIva(totalPorTipoIva, lineasTicket));

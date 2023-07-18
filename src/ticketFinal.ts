@@ -1,4 +1,4 @@
-import { LineaTicket, TicketFinal } from "./constantes";
+import { LineaTicket, TicketFinal, tiposIva } from "./constantes";
 
 import {
   ivaTotal,
@@ -24,6 +24,6 @@ export const calculaTicket = (lineasTicket: LineaTicket[]): TicketFinal => {
       totalConIva: subtotal + totalIva,
       totalIva: totalIva,
     },
-    desgloseIva: muestraTotalesPorTipoIva(lineasTicket),
+    desgloseIva: muestraTotalesPorTipoIva(tiposIva, lineasTicket),
   };
 };

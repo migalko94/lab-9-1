@@ -1,9 +1,10 @@
-import { LineaTicket, ResultadoLineaTicket } from "./constantes";
+import { LineaTicket, ResultadoLineaTicket, tiposIva } from "./constantes";
 import {
   sumaTotalesSinIva,
-  muestraTotalesPorTipoIva,
   ivaTotal,
   imprimeLineasTicket,
+  muestraTotalesPorTipoIva,
+  mapeaATotalPorTipoIva,
 } from "./ticketFinal.helpers";
 
 describe("sumaTotalesSinIva", () => {
@@ -98,6 +99,78 @@ describe("ivaTotal", () => {
   });
 });
 
+describe("mapeaATotalPorTipoIva", () => {
+  it("Devuelve un objeto con la suma total de los importes de los productos filtrados por un tipo de IVA y el tipo de IVA correspondiente", () => {
+    // Arrange:
+    const productosEjemplo: LineaTicket[] = [
+      {
+        producto: {
+          nombre: "Legumbres",
+          precio: 2,
+          tipoIva: "general",
+        },
+        cantidad: 2,
+      },
+      {
+        producto: {
+          nombre: "Perfume",
+          precio: 20,
+          tipoIva: "general",
+        },
+        cantidad: 3,
+      },
+      {
+        producto: {
+          nombre: "Leche",
+          precio: 1,
+          tipoIva: "superreducidoC",
+        },
+        cantidad: 6,
+      },
+      {
+        producto: {
+          nombre: "Lasaña",
+          precio: 5,
+          tipoIva: "superreducidoA",
+        },
+        cantidad: 5,
+      },
+    ];
+
+    // Act:
+    const resultadoFuncionGeneral = mapeaATotalPorTipoIva(
+      "general",
+      productosEjemplo
+    );
+    const resultadoFuncionSuperreducidoA = mapeaATotalPorTipoIva(
+      "superreducidoA",
+      productosEjemplo
+    );
+    const resultadoFuncionSuperreducidoC = mapeaATotalPorTipoIva(
+      "superreducidoC",
+      productosEjemplo
+    );
+    const resultadoEsperadoGeneral = { tipoIva: "general", cuantia: 13.44 };
+    const resultadoEsperadoSuperreducidoA = {
+      tipoIva: "superreducidoA",
+      cuantia: 1.25,
+    };
+    const resultadoEsperadoSuperreducidoC = {
+      tipoIva: "superreducidoC",
+      cuantia: 0,
+    };
+
+    // Assert:
+    expect(resultadoFuncionGeneral).toEqual(resultadoEsperadoGeneral);
+    expect(resultadoFuncionSuperreducidoA).toEqual(
+      resultadoEsperadoSuperreducidoA
+    );
+    expect(resultadoFuncionSuperreducidoC).toEqual(
+      resultadoEsperadoSuperreducidoC
+    );
+  });
+});
+
 describe("muestraTotalesPorTipoIva", () => {
   it("Devuelve un array de objetos con la suma total del importe filtrado por tipo de IVA y el tipo de IVA correspondiente. En este caso, se divide entre general, superreducido A y C", () => {
     // Arrange:
@@ -137,11 +210,14 @@ describe("muestraTotalesPorTipoIva", () => {
     ];
 
     // Act:
-    const resultadoFuncion = muestraTotalesPorTipoIva(productosEjemplo);
+    const resultadoFuncion = muestraTotalesPorTipoIva(
+      tiposIva,
+      productosEjemplo
+    );
     const resultadoEsperado = [
       { tipoIva: "general", cuantia: 13.44 },
-      { tipoIva: "superreducidoC", cuantia: 0 },
       { tipoIva: "superreducidoA", cuantia: 1.25 },
+      { tipoIva: "superreducidoC", cuantia: 0 },
     ];
 
     // Assert:
@@ -196,11 +272,14 @@ describe("muestraTotalesPorTipoIva", () => {
     ];
 
     // Act:
-    const resultadoFuncion = muestraTotalesPorTipoIva(productosEjemplo);
+    const resultadoFuncion = muestraTotalesPorTipoIva(
+      tiposIva,
+      productosEjemplo
+    );
     const resultadoEsperado = [
-      { tipoIva: "superreducidoB", cuantia: 3.12 },
-      { tipoIva: "superreducidoA", cuantia: 1.28 },
       { tipoIva: "general", cuantia: 14.7 },
+      { tipoIva: "superreducidoA", cuantia: 1.28 },
+      { tipoIva: "superreducidoB", cuantia: 3.12 },
     ];
 
     // Assert:

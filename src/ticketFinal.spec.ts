@@ -64,8 +64,8 @@ describe("calculaTicket", () => {
     const resultado: TicketFinal = {
       desgloseIva: [
         { tipoIva: "general", cuantia: 13.44 },
-        { tipoIva: "superreducidoC", cuantia: 0 },
         { tipoIva: "superreducidoA", cuantia: 0.25 },
+        { tipoIva: "superreducidoC", cuantia: 0 },
       ],
       lineas: [
         {
