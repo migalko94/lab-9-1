@@ -4,7 +4,6 @@ import {
   ivaTotal,
   imprimeLineasTicket,
   muestraTotalesPorTipoIva,
-  mapeaATotalPorTipoIva,
 } from "./ticketFinal.helpers";
 
 describe("sumaTotalesSinIva", () => {
@@ -96,78 +95,6 @@ describe("ivaTotal", () => {
     const resultadoEsperado = 13.69;
     // Assert:
     expect(resultadoFuncion).toEqual(resultadoEsperado);
-  });
-});
-
-describe("mapeaATotalPorTipoIva", () => {
-  it("Devuelve un objeto con la suma total de los importes de los productos filtrados por un tipo de IVA y el tipo de IVA correspondiente. En este caso, por los tipos de IVA general, superreducido A y C", () => {
-    // Arrange:
-    const productosEjemplo: LineaTicket[] = [
-      {
-        producto: {
-          nombre: "Legumbres",
-          precio: 2,
-          tipoIva: "general",
-        },
-        cantidad: 2,
-      },
-      {
-        producto: {
-          nombre: "Perfume",
-          precio: 20,
-          tipoIva: "general",
-        },
-        cantidad: 3,
-      },
-      {
-        producto: {
-          nombre: "Leche",
-          precio: 1,
-          tipoIva: "superreducidoC",
-        },
-        cantidad: 6,
-      },
-      {
-        producto: {
-          nombre: "Lasaña",
-          precio: 5,
-          tipoIva: "superreducidoA",
-        },
-        cantidad: 5,
-      },
-    ];
-
-    // Act:
-    const resultadoFuncionGeneral = mapeaATotalPorTipoIva(
-      "general",
-      productosEjemplo
-    );
-    const resultadoFuncionSuperreducidoA = mapeaATotalPorTipoIva(
-      "superreducidoA",
-      productosEjemplo
-    );
-    const resultadoFuncionSuperreducidoC = mapeaATotalPorTipoIva(
-      "superreducidoC",
-      productosEjemplo
-    );
-    const resultadoEsperadoGeneral = { tipoIva: "general", cuantia: 13.44 };
-    const resultadoEsperadoSuperreducidoA = {
-      tipoIva: "superreducidoA",
-      cuantia: 1.25,
-    };
-    const resultadoEsperadoSuperreducidoC = {
-      tipoIva: "superreducidoC",
-      cuantia: 0,
-    };
-
-    // Assert:
-    expect(resultadoFuncionGeneral).toEqual(resultadoEsperadoGeneral);
-    expect(resultadoFuncionSuperreducidoA).toEqual(
-      resultadoEsperadoSuperreducidoA
-    );
-    expect(resultadoFuncionSuperreducidoC).toEqual(
-      resultadoEsperadoSuperreducidoC
-    );
   });
 });
 

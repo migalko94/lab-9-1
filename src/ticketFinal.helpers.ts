@@ -36,7 +36,7 @@ export const imprimeLineasTicket = (
 ): ResultadoLineaTicket[] =>
   lineaTicket.map((producto: LineaTicket) => crearLineaTicket(producto));
 
-export const mapeaATotalPorTipoIva = (
+const mapeaATotalPorTipoIva = (
   tipoIva: TipoIva,
   lineasTicket: LineaTicket[]
 ): TotalPorTipoIva => {
