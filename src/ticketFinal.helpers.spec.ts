@@ -100,7 +100,7 @@ describe("ivaTotal", () => {
 });
 
 describe("mapeaATotalPorTipoIva", () => {
-  it("Devuelve un objeto con la suma total de los importes de los productos filtrados por un tipo de IVA y el tipo de IVA correspondiente", () => {
+  it("Devuelve un objeto con la suma total de los importes de los productos filtrados por un tipo de IVA y el tipo de IVA correspondiente. En este caso, por los tipos de IVA general, superreducido A y C", () => {
     // Arrange:
     const productosEjemplo: LineaTicket[] = [
       {
